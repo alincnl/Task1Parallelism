@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include <cmath>
 using namespace std;
 
@@ -18,11 +19,17 @@ void fill_sin(double* a) {
         arr_sum += a[i];
     }
     }
+    cout << fixed;
+	cout.precision(20);
     cout << arr_sum << endl;
 }
 int main() {
-    double* a = new double[n];
-    fill_sin(a);
-    delete[] a;
-    return 0;
+    auto begin = std::chrono::steady_clock::now();
+	double* a = new double[n];
+	fill_sin(a);
+	delete[] a;
+	auto end = std::chrono::steady_clock::now();
+	auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+    std::cout << "The time: " << elapsed_ms.count() << " ms\n";
+	return 0;
 }
