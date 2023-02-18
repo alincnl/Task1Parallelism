@@ -3,10 +3,10 @@
 using namespace std;
 
 int n = 10000000;
-double temp = 2 * 3.141592 / n;
-double arr_sum = 0;
+float temp = 2 * 3.141592 / n;
+float arr_sum = 0;
 
-void fill_sin(double* a) {
+void fill_sin(float* a) {
     #pragma acc data create(a[:n]) copy(arr_sum) copyin(temp)
     {
     #pragma acc kernels
@@ -18,10 +18,12 @@ void fill_sin(double* a) {
         arr_sum += a[i];
     }
     }
+    cout << fixed;
+	cout.precision(20);
     cout << arr_sum << endl;
 }
 int main() {
-    double* a = new double[n];
+    float* a = new float[n];
     fill_sin(a);
     delete[] a;
     return 0;
